@@ -63,6 +63,14 @@
 
 		<section>
 			<h2>Baza de date</h2>
+			<p>Câteva dintre tabelele bazei de date vor fi:</p>
+			<ul>
+				<li>useri</li>
+				<li>carti</li>
+				<li>imprumuturi</li>
+				<li>rezervari</li>
+				<li>exemplare</li>
+			</ul>
 		</section>
 	</body>
 </html>
