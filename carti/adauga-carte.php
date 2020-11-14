@@ -6,8 +6,8 @@ if (!isset($_SESSION["rol"]) || $_SESSION["rol"] != "admin")
     header("Content-Type: text/html; charset=utf-8");
 
 require_once "../_setup/setup.php";
-require "_setup/conexiune_bd.php";
-require_once "_inc/topper.inc.php";
+require "../_setup/conexiune_bd.php";
+require_once "../_inc/topper.inc.php";
 
 ?>
 
