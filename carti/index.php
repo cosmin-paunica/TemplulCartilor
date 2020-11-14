@@ -2,8 +2,8 @@
 
 session_start();
 require_once "../_setup/setup.php";
-require_once "_inc/topper.inc.php";
-require "_setup/conexiune_bd.php";
+require_once "../_inc/topper.inc.php";
+require "../_setup/conexiune_bd.php";
 
 ?>
 
@@ -11,7 +11,7 @@ require "_setup/conexiune_bd.php";
 		<title>Cărți • Templul Cărților</title>
 	</head>
 	<body>
-		<?php require "_inc/header.inc.php"; ?>
+		<?php require "../_inc/header.inc.php"; ?>
 		<main>
 			<?php if (isset($_GET["caut"]) && !empty($_GET["caut"])) { ?>
 				<p>Vezi rezultatele căutării pentru <?php echo $_GET["caut"]; ?>.</p>
