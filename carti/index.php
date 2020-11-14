@@ -5,9 +5,6 @@ require_once "../_setup/setup.php";
 require_once "_inc/topper.inc.php";
 require "_setup/conexiune_bd.php";
 
-if (isset($_GET["cautare"]))
-    $_GET["cautare"] = strtolower($_GET["cautare"]);
-
 ?>
 
 		<link rel="stylesheet" type="text/css" href="<?php echo ROOT; ?>_css/carti.css" />
