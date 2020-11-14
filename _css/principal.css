@@ -1,0 +1,140 @@
+* {
+	margin:0px;
+	padding:0px;
+    text-indent:0px;
+    box-sizing: border-box;
+}
+
+*:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+    font-size: 16px;
+}
+
+#top-div {
+    background-color: brown;
+    height: 80px;
+    padding: 0px;
+}
+
+#top-div a {
+    display: inline-block;
+    font-size: 30px;
+    text-decoration: none;
+    color: white;
+    padding: 0px 30px;
+    line-height: 80px;
+}
+
+/* NAVBAR */
+#navbar {
+    width: 100%;
+    background-color: black;
+    height: 40px;
+    color: white;
+}
+
+#navbar * {
+    padding: 0px;
+}
+
+.meniu li, .meniu input {
+	display: block;
+	height: 40px;
+	line-height:40px;
+	text-align: center;
+	list-style-type: none;
+	overflow: hidden;
+}
+
+.meniu>li {
+	float: left;
+	width: 200px;
+    background-color: black;
+	border-right: 2px solid white;
+}
+
+.submeniu>li{
+    background-color: rgb(63, 63, 63);
+}
+
+.submeniu input {
+    width: 100%;
+    background-color: rgb(63, 63, 63);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 799px) {
+    .meniu>li {
+        width: 25%;
+    }
+
+    .meniu>li:last-child {
+        border-right: none;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .meniu li, .meniu a {
+        width: 100%;
+        border-right: none;
+    }
+}
+
+ul.meniu>li:hover {
+	overflow: visible;
+}
+
+.meniu a, .meniu div {
+    display: block;
+    text-decoration: none;
+    color: white;
+}
+
+.submeniu {
+    position: relative;
+    top: 0px;
+}
+
+.meniu a:hover, .meniu input:hover {
+    background-color: rgb(97, 83, 187);
+}
+/* ---------- */
+
+/* SEARCHBAR */
+#searchbar input[type=text] {
+    width: 100%;
+    padding: 10px 15px 10px 44px;
+    font-size: 18px;
+    background-color: rgb(215, 215, 215);
+    background-image: url('../_ico/search_icon.png');
+    background-position: 9px 6px;
+    background-repeat: no-repeat;
+    border: 1px solid grey;
+}
+
+#searchbar input[type=text]:hover, #searchbar input[type=text]:focus {
+    background-color: rgb(235, 235, 235);
+}
+
+#searchbar input[type=text]:focus {
+    border: 2px solid black;
+    padding: 9px 15px 9px 44px;
+}
+
+#searchbar {
+    margin-bottom: 20px;
+}
+/* ---------- */
+
+.succes-text {
+    text-align: center;
+    color: green;
+    font-weight: bold;
+}
+
+.err-text {
+    text-align: center;
+    color: red;
+    font-weight: bold;
+}

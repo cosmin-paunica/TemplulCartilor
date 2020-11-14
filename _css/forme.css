@@ -1,0 +1,21 @@
+.form-table {
+    margin: 20px auto;
+}
+
+input[type=email], [type=text], [type=password], [type=url] {
+    width: 250px;
+}
+
+input[type=number] {
+    width: 100px;
+}
+
+input[type=submit] {
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.stea-camp-obligatoriu {
+    color: red;
+}
