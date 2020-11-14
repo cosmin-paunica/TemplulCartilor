@@ -5,7 +5,7 @@
 
 		<nav id="navbar">
 			<ul class="meniu">
-				<li><a href="<?php echo "/app/"; ?>">Acasă</a></li>
+				<li><a href="<?php echo ROOT; ?>">Acasă</a></li>
 				<li><a href="<?php echo ROOT; ?>prezentare.php">Prezentare</a></li>
 				<li>
 					<a href="<?php echo ROOT; ?>carti">Explorează cărți</a>
