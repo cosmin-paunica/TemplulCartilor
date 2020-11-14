@@ -8,16 +8,16 @@ if (!isset($_SESSION["rol"]) || $_SESSION["rol"] != "admin")
     header("../index.php");
 
 // tratare formular modificat
-$campuri = ["titlu", "autori", "limba", "limba-noua", "data-pub", "nr-pag", "serie", "serie-noua", "goodreads"];
+$campuri = ["titlu", "autori", "limba", "limba-noua", "data-pub", "nr-exemplare", "nr-pag", "serie", "serie-noua", "goodreads"];
 foreach ($campuri as $camp)
     if (!isset($_POST[$camp]))
         header("Location: ../carti/adauga-carte.php?err=modificat");
 
-if (!isset($_FILES["fisier-img"]))
-    header("Location: ../carti/adauga-carte.php?err=modificat");
+// if (!isset($_FILES["fisier-img"]))
+//     header("Location: ../carti/adauga-carte.php?err=modificat");
 
 // tratare campuri obligatorii necompletate
-$campuri = ["titlu", "autori"];
+$campuri = ["titlu", "autori", "nr-exemplare"];
 foreach ($campuri as $camp)
     if (empty(trim($_POST["titlu"])))
         header("Location: ../carti/adauga-carte.php?err=incomplet");
@@ -36,6 +36,8 @@ else
     $limba = $_POST["limba"];
 if (!empty($_POST["data-pub"]))
     $data_pub = $_POST["data-pub"];
+if (!empty($_POST["nr-exemplare"]))
+    $nr_exemplare = $_POST["nr-exemplare"];
 if (!empty($_POST["nr-pag"]))
     $nr_pag = $_POST["nr-pag"];
 if (!empty($_POST["serie-noua"]))
@@ -46,27 +48,27 @@ if (!empty($_POST["goodreads"]))
     $goodreads = $_POST["goodreads"];
 
 // fisier imagine
-if (is_uploaded_file($_FILES['fisier-img']['tmp_name'])) {
-    $fisier_img = $_FILES["fisier-img"];
-    $nume_fisier_img = $fisier_img["name"];
-    $nume_tmp_fisier_img = $fisier_img["tmp_name"];
-    $ext = explode(".", $nume_fisier_img);
-    $ext = strtolower(end($ext));
+// if (is_uploaded_file($_FILES['fisier-img']['tmp_name'])) {
+//     $fisier_img = $_FILES["fisier-img"];
+//     $nume_fisier_img = $fisier_img["name"];
+//     $nume_tmp_fisier_img = $fisier_img["tmp_name"];
+//     $ext = explode(".", $nume_fisier_img);
+//     $ext = strtolower(end($ext));
     
-    $ext_permise = ["jpg", "jpeg"];
-    if (!in_array($ext, $ext_permise))
-        header("Location: ../carti/adauga-carte.php?err=extimg");
+//     $ext_permise = ["jpg", "jpeg"];
+//     if (!in_array($ext, $ext_permise))
+//         header("Location: ../carti/adauga-carte.php?err=extimg");
 
-    if ($fisier_img["error"] !== 0)
-        header("Location: ../carti/adauga-carte.php?err=imguplderr");
+//     if ($fisier_img["error"] !== 0)
+//         header("Location: ../carti/adauga-carte.php?err=imguplderr");
     
-    if ($fisier_img["size"] > 6291456)
-        header("Location: ../carti/adauga-carte.php?err=imgmare");
+//     if ($fisier_img["size"] > 6291456)
+//         header("Location: ../carti/adauga-carte.php?err=imgmare");
     
-    $nume_nou_img = uniqid("coperta1_".str_replace([" "], "_", substr(str_replace([",", "."], "", $titlu), 0, 20))).".".$ext;
-    $destinatie = "../_img/".$nume_nou_img;
-    move_uploaded_file($nume_tmp_fisier_img, $destinatie);
-}
+//     $nume_nou_img = uniqid("coperta1_".str_replace([" "], "_", substr(str_replace([",", "."], "", $titlu), 0, 20))).".".$ext;
+//     $destinatie = "../_img/".$nume_nou_img;
+//     move_uploaded_file($nume_tmp_fisier_img, $destinatie);
+// }
 
 // echo $nume_nou_img;
 // die;
@@ -119,10 +121,10 @@ $id_serie = $linie["id_serie"];
 
 // inserare in tabela carti
 $interog = $bd->prepare("
-    INSERT INTO carti (titlu, id_limba, data_publicare, numar_pagini, fisier_imagine, id_serie, link_goodreads)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO carti (titlu, id_limba, data_publicare, numar_pagini, id_serie, link_goodreads, numar_exemplare, numar_disponibile)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 ");
-$interog->bind_param("sisisis", $titlu, $id_limba, $data_pub, $nr_pag, $nume_nou_img, $id_serie, $goodreads);
+$interog->bind_param("sisiisii", $titlu, $id_limba, $data_pub, $nr_pag, $id_serie, $goodreads, $nr_exemplare, $nr_exemplare);
 $interog->execute();
 
 // autori

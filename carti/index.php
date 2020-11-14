@@ -36,7 +36,6 @@ require "../_setup/conexiune_bd.php";
 						while ($linie_carte = $rez_carte->fetch_assoc()) {
 							$id_carte = $linie_carte["id_carte"];
 							$titlu = $linie_carte["titlu"];
-							$fisier_img = $linie_carte["fisier_imagine"];
 							
 							$interog_autori = $bd->prepare("SELECT nume_autor FROM autori_carti WHERE id_carte=?");
 							$interog_autori->bind_param("i", $id_carte);
@@ -50,11 +49,6 @@ require "../_setup/conexiune_bd.php";
 
 							echo "
 								<div class=\"linie-carte\">
-									<div>
-										<a href=\"carte.php?id=".$id_carte."\">
-											<img src=\"../_img/".$fisier_img."\" height=\"100\" />
-										</a>
-									</div>
 									<div>
 										<a href=\"carte.php?id=".$id_carte."\">".$titlu."</a>
 										<p>Autor(i): ".$autori."</p>
