@@ -15,7 +15,7 @@ require_once "_inc/topper.inc.php";
 		<title>Templul Cărților</title>
 	</head>
 	<body>
-		<?php require "_inc/header.inc.php"; ?>
+		<?php require "../_inc/header.inc.php"; ?>
 		<main>
             <?php
 

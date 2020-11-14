@@ -2,7 +2,7 @@
 
 session_start();
 require_once "../_setup/setup.php";
-require_once "_inc/topper.inc.php";
+require_once "../_inc/topper.inc.php";
 
 if (isset($_GET["cautare"]))
     $_GET["cautare"] = strtolower($_GET["cautare"]);
