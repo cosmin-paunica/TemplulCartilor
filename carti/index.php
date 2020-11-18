@@ -57,7 +57,7 @@ require "../_inc/conexiune_bd.inc.php";
 							echo "
 								<div class=\"linie-carte\">
 									<div>
-										<a href=\"carte.php?id=".$id_carte."\">".$titlu."</a>
+										<a href=\"carte?id=".$id_carte."\">".$titlu."</a>
 										<p>Autor(i): ".$autori."</p>
 									</div>
 								</div>

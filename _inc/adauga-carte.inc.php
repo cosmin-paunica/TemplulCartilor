@@ -29,23 +29,23 @@ if (empty(trim($_POST["limba"]) ) && empty(trim($_POST["limba-noua"])) )
 $titlu = trim($_POST["titlu"]);
 $autori = explode(",", $_POST["autori"]);
 for ($i = 0; $i < count($autori); $i++)
-    $autori[$i] = trim($autori[$i]);
+    $autori[$i] = addslashes(trim($autori[$i]));
 if (!empty(trim($_POST["limba-noua"])))
-    $limba = trim($_POST["limba-noua"]);
+    $limba = addslashes(trim($_POST["limba-noua"]));
 else
-    $limba = trim($_POST["limba"]);
+    $limba = addslashes(trim($_POST["limba"]));
 if (!empty(trim($_POST["data-pub"])))
-    $data_pub = trim($_POST["data-pub"]);
+    $data_pub = addslashes(trim($_POST["data-pub"]));
 if (!empty(trim($_POST["nr-exemplare"])))
-    $nr_exemplare = trim($_POST["nr-exemplare"]);
+    $nr_exemplare = addslashes(trim($_POST["nr-exemplare"]));
 if (!empty(trim($_POST["nr-pag"])))
-    $nr_pag = trim($_POST["nr-pag"]);
+    $nr_pag = addslashes(trim($_POST["nr-pag"]));
 if (!empty(trim($_POST["serie-noua"])))
-    $serie = trim($_POST["serie-noua"]);
+    $serie = addslashes(trim($_POST["serie-noua"]));
 else if (!empty(trim($_POST["serie"])))
-    $serie = trim($_POST["serie"]);
+    $serie = addslashes(trim($_POST["serie"]));
 if (!empty(trim($_POST["goodreads"])))
-    $goodreads = trim($_POST["goodreads"]);
+    $goodreads = addslashes(trim($_POST["goodreads"]));
 
 // fisier imagine
 // if (is_uploaded_file($_FILES['fisier-img']['tmp_name'])) {

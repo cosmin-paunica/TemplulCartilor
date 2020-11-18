@@ -18,7 +18,7 @@ else {
 
     if ($complet) {
         // preluare date
-        $email_client = trim($_POST["email-client"]);
+        $email_client = addslashes(trim($_POST["email-client"]));
         $data_inceput = date_create($_POST["data-inceput"]);
         $str_data_inceput = date_format($data_inceput, "Y-m-d");
         $durata = $_POST["durata"];
