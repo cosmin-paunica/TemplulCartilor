@@ -2,7 +2,7 @@
 
 header('Content-Type: text/html; charset=utf-8');
 session_start();
-require "../_setup/conexiune_bd.php";
+require "../_inc/conexiune_bd.inc.php";
 
 if (!isset($_SESSION["rol"]) || $_SESSION["rol"] != "admin")
     header("../index.php");
@@ -11,7 +11,7 @@ if (!isset($_SESSION["rol"]) || $_SESSION["rol"] != "admin")
 $campuri = ["titlu", "autori", "limba", "limba-noua", "data-pub", "nr-exemplare", "nr-pag", "serie", "serie-noua", "goodreads"];
 foreach ($campuri as $camp)
     if (!isset($_POST[$camp]))
-        header("Location: ../carti/adauga-carte.php?err=modificat");
+        header("Location: ../actiuni/adauga-carte.php?err=modificat");
 
 // if (!isset($_FILES["fisier-img"]))
 //     header("Location: ../carti/adauga-carte.php?err=modificat");
@@ -20,32 +20,32 @@ foreach ($campuri as $camp)
 $campuri = ["titlu", "autori", "nr-exemplare"];
 foreach ($campuri as $camp)
     if (empty(trim($_POST["titlu"])))
-        header("Location: ../carti/adauga-carte.php?err=incomplet");
+        header("Location: ../actiuni/adauga-carte.php?err=incomplet");
 
 if (empty(trim($_POST["limba"]) ) && empty(trim($_POST["limba-noua"])) )
-    header("Location: ../carti/adauga-carte.php?err=incomplet");
+    header("Location: ../actiunu/adauga-carte.php?err=incomplet");
 
 // preluare date
 $titlu = trim($_POST["titlu"]);
 $autori = explode(",", $_POST["autori"]);
 for ($i = 0; $i < count($autori); $i++)
     $autori[$i] = trim($autori[$i]);
-if (!empty($_POST["limba-noua"]))
-    $limba = $_POST["limba-noua"];
+if (!empty(trim($_POST["limba-noua"])))
+    $limba = trim($_POST["limba-noua"]);
 else
-    $limba = $_POST["limba"];
-if (!empty($_POST["data-pub"]))
-    $data_pub = $_POST["data-pub"];
-if (!empty($_POST["nr-exemplare"]))
-    $nr_exemplare = $_POST["nr-exemplare"];
-if (!empty($_POST["nr-pag"]))
-    $nr_pag = $_POST["nr-pag"];
-if (!empty($_POST["serie-noua"]))
-    $serie = $_POST["serie-noua"];
-else if (!empty($_POST["serie"]))
-    $serie = $_POST["serie"];
-if (!empty($_POST["goodreads"]))
-    $goodreads = $_POST["goodreads"];
+    $limba = trim($_POST["limba"]);
+if (!empty(trim($_POST["data-pub"])))
+    $data_pub = trim($_POST["data-pub"]);
+if (!empty(trim($_POST["nr-exemplare"])))
+    $nr_exemplare = trim($_POST["nr-exemplare"]);
+if (!empty(trim($_POST["nr-pag"])))
+    $nr_pag = trim($_POST["nr-pag"]);
+if (!empty(trim($_POST["serie-noua"])))
+    $serie = trim($_POST["serie-noua"]);
+else if (!empty(trim($_POST["serie"])))
+    $serie = trim($_POST["serie"]);
+if (!empty(trim($_POST["goodreads"])))
+    $goodreads = trim($_POST["goodreads"]);
 
 // fisier imagine
 // if (is_uploaded_file($_FILES['fisier-img']['tmp_name'])) {
@@ -142,6 +142,6 @@ foreach ($autori as $aut) {
     $interog->execute();
 }
 
-header("Location: ../carti/adauga-carte.php?msg=adaugata")
+header("Location: ../actiuni/adauga-carte.php?msg=adaugata");
 
 ?>

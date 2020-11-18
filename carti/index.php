@@ -1,9 +1,9 @@
 <?php
 
 session_start();
-require_once "../_setup/setup.php";
-require_once "../_inc/topper.inc.php";
-require "../_setup/conexiune_bd.php";
+require_once "../_inc/setup.inc.php";
+require "../_inc/topper.inc.php";
+require "../_inc/conexiune_bd.inc.php";
 
 ?>
 
@@ -13,15 +13,15 @@ require "../_setup/conexiune_bd.php";
 	<body>
 		<?php require "../_inc/header.inc.php"; ?>
 		<main>
-			<?php if (isset($_GET["caut"]) && !empty($_GET["caut"])) { ?>
-				<p>Vezi rezultatele căutării pentru <?php echo $_GET["caut"]; ?>.</p>
-			<?php } else { ?>
-				<p>Vezi cărțile bibliotecii.</p>
-			<?php } ?>
 			<div class="coloane">
 				<div class="coloana-sort-filter">
 					<form method="GET" action="">
-						
+						<p>Sortează după:</p>
+						<input type="radio" name="sort" id="sort-recente" value="recente" <?php if (isset($_GET["sort"]) && $_GET["sort"] == "recente") echo "checked"; ?> />
+						<label for="sort-recente">Cele mai recente</label><br />
+						<input type="radio" name="sort" id="sort-imprumutate" value="imprumutate" <?php if (isset($_GET["sort"]) && $_GET["sort"] == "imprumutate") echo "checked"; ?> />
+						<label for="sort-imprumutate">Cele mai împrumutate</label><br />
+						<input type="submit" value="Aplică" />
 					</form>
 				</div>
 
@@ -29,7 +29,14 @@ require "../_setup/conexiune_bd.php";
 					<ul>
 						<?php
 
-						$interog_carte = $bd->prepare("SELECT * FROM carti");
+						$str_interog_carte = "SELECT * FROM carti";
+						if (isset($_GET["sort"])) {
+							$sort_crit = $_GET["sort"];
+							if ($sort_crit == "recente")
+								$str_interog_carte .= " ORDER BY data_adaugare DESC";
+							// else if ($sort_crit == "imprumutate")
+						}
+						$interog_carte = $bd->prepare($str_interog_carte);
 						// $interog_carte->bind_param()
 						$interog_carte->execute();
 						$rez_carte = $interog_carte->get_result();

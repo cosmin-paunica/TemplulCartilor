@@ -1,12 +1,12 @@
 <?php
 
 session_start();
-require_once "_setup/setup.php";
+require_once "_inc/setup.inc.php";
 require_once "_inc/topper.inc.php";
 
 ?>
 
-        <link rel="stylesheet" type="text/css" href="<?php echo ROOT; ?>_css/forme.css" />
+        <link rel="stylesheet" type="text/css" href="_css/forme.css" />
         <title>Înregistrare</title>
     </head>
     <body>

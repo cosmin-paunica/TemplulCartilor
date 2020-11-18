@@ -3,16 +3,15 @@
 session_start();
 if (!isset($_SESSION["rol"]) || $_SESSION["rol"] != "admin")
     header("Location: ../index.php");
-    header("Content-Type: text/html; charset=utf-8");
 
-require_once "../_setup/setup.php";
-require "../_setup/conexiune_bd.php";
+require_once "../_inc/setup.inc.php";
+require "../_inc/conexiune_bd.inc.php";
 require_once "../_inc/topper.inc.php";
 
 ?>
 
         <link rel="stylesheet" type="text/css" href="../_css/forme.css" />
-		<title>Templul Cărților</title>
+		<title>Adaugă carte • Templul Cărților</title>
 	</head>
 	<body>
 		<?php require "../_inc/header.inc.php"; ?>

@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require_once "_setup/setup.php";
+require_once "_inc/setup.inc.php";
 require_once "_inc/topper.inc.php";
 
 ?>

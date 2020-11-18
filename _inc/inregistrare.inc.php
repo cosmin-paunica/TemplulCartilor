@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require "../_setup/conexiune_bd.php";
+require "../_inc/conexiune_bd.inc.php";
 
 $campuri = ["email", "prenume", "nume", "parola", "conf-parola"];
 $complet = true;
@@ -39,6 +39,6 @@ $interog->bind_param("ssss", $email, $prenume, $nume, $parola_criptata);
 $interog->execute();
 $interog->close();
 
-header("Location: ../index.php?info=inregistrat");
+header("Location: ../?msg=inregistrat");
 
 ?>

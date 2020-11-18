@@ -6,7 +6,7 @@
 		<nav id="navbar">
 			<ul class="meniu">
 				<li><a href="<?php echo ROOT; ?>">Acasă</a></li>
-				<li><a href="<?php echo ROOT; ?>prezentare.php">Prezentare</a></li>
+				<li><a href="<?php echo ROOT; ?>prezentare">Prezentare</a></li>
 				<li>
 					<a href="<?php echo ROOT; ?>carti">Explorează cărți</a>
 					<ul class="submeniu">
@@ -17,11 +17,9 @@
 				<li>
 					<?php if (isset($_SESSION["id_utilizator"])) { ?>
 
-						<a href="<?php echo ROOT; ?>profil"><?php echo $_SESSION["prenume"]." ".$_SESSION["nume"]; ?></a>
+						<div><?php echo $_SESSION["prenume"]." ".$_SESSION["nume"]; ?></div>
 						<ul class="submeniu">
-							<?php if (isset($_SESSION["rol"]) && $_SESSION["rol"] == "admin") { ?>
-								<li><a href="<?php echo ROOT; ?>carti/adauga-carte.php">Adaugă carte</a></li>
-							<?php } ?>
+							<li><a href="<?php echo ROOT; ?>profil">Profilul tău</a></li>
 							<li>
 								<form action="<?php echo ROOT; ?>_inc/logout.inc.php" method="GET">
 									<input type="submit" value="Logout" />
@@ -33,12 +31,27 @@
 
 						<div>Intră în cont</div>
 						<ul class="submeniu">
-							<li><a href="<?php echo ROOT; ?>autentificare.php">Autentificare</a></li>
-							<li><a href="<?php echo ROOT; ?>inregistrare.php">Înregistrare</a></li>
+							<li><a href="<?php echo ROOT; ?>autentificare">Autentificare</a></li>
+							<li><a href="<?php echo ROOT; ?>inregistrare">Înregistrare</a></li>
 						</ul>
 
 					<?php } ?>
 				</li>
+
+				<?php if (isset($_SESSION["rol"]) && in_array($_SESSION["rol"], ["bibliotecar", "admin"])) { ?>
+
+					<li>
+						<div>Acțiuni</div>
+						<ul class="submeniu">
+							<?php if ($_SESSION["rol"] == "admin") { ?>
+								<li><a href="<?php echo ROOT; ?>actiuni/adauga-carte">Adaugă o carte</a></li>
+							<?php } ?>
+							<li><a href="<?php echo ROOT; ?>actiuni/creaza-abonament">Crează un abonament</a></li>
+						</ul>
+				</li>
+
+				<?php } ?>
+				
 			</ul>
 		</nav>
 

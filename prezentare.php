@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require_once "_setup/setup.php";
+require_once "_inc/setup.inc.php";
 require_once "_inc/topper.inc.php";
 
 ?>
@@ -39,7 +39,6 @@ require_once "_inc/topper.inc.php";
 						<p>Pe lângă acțiunile specifice unui utilizator simplu, clienții vor putea:</p>
 						<ul>
 							<li>Să vadă cărțile care sunt în posesia lor la un moment dat și să vadă termenele de predare ale acestora.</li>
-							<li>Să rezerve cărți timp de un anumit număr de zile. Dacă nu onorează rezervarea, își pierd dreptul de a rezerva pentru o perioadă.</li>
 							<li>Să scrie recenzii ale cărților împrumutate, după ce le returnează.</li>
 						</ul>
 					</section>

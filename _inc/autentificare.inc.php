@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require "../_setup/conexiune_bd.php";
+require "../_inc/conexiune_bd.inc.php";
 
 $campuri = ["email", "parola"];
 $complet = true;
@@ -50,7 +50,7 @@ else {
                 $_SESSION["rol"] = $linie["rol"];
             }
 
-            header("Location: ../index.php");
+            header("Location: ../");
         }
     }
 }
