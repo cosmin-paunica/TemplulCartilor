@@ -26,9 +26,9 @@ require_once "_inc/topper.inc.php";
 						<h3>Utilizatori simpli</h3>
 						<p>Utilizatorii simpli vor putea:</p>
 						<ul>
-							<li>Să vadă ce cărți aparțin bibliotecii.</li>
+							<li class="task-completat">Să vadă ce cărți aparțin bibliotecii.</li>
 							<li>Să caute o carte sau un autor în bibliotecă, folosind cuvinte cheie.</li>
-							<li>Să vadă câte exemplare ale unei cărți sunt disponibile în bibliotecă.</li>
+							<li class="task-completat">Să vadă câte exemplare ale unei cărți sunt disponibile în bibliotecă.</li>
 							<li>În cazul cărților pentru care toate exemplarele sunt împrumutate, să vadă când este data de predare a unui exemplar (acest lucru nu va fi foarte precis, întrucât clienții își pot prelungi împrumuturile sau pot aduce cărțile înapoi mai devreme).</li>
 						</ul>
 					</section>
@@ -48,7 +48,7 @@ require_once "_inc/topper.inc.php";
 						<h3>Bibliotecari</h3>
 						<p>Pe lângă activitățile specifice clienților, bibliotecarii vor putea:</p>
 						<ul>
-							<li>Să marcheze un cont de utilizator simplu ca fiind cont de client.</li>
+							<li class="task-completat">Să marcheze un cont de utilizator simplu ca fiind cont de client.</li>
 							<li>Să înregistreze împrumutul unei cărți unui client, lucru ce va schimba informații de pe site, precum numărul de exemplare ale cărții disponibile în biblitoecă.</li>
 						</ul>
 					</section>
@@ -58,8 +58,8 @@ require_once "_inc/topper.inc.php";
 						<h3>Admini</h3>
 						<p>Pe lângă activitățile specifice bibliotecarilor, adminii vor putea:</p>
 						<ul>
-							<li>Să marcheze un cont ca fiind cont de bibliotecar sau de admin.</li>
-							<li>Să adauge o nouă carte sau să modifice stocul unei cărți din bibliotecă.</li>
+							<li class="task-completat">Să marcheze un cont ca fiind cont de bibliotecar sau de admin.</li>
+							<li class="task-completat">Să adauge o nouă carte sau să modifice stocul unei cărți din bibliotecă.</li>
 						</ul>
 					</section>
 				</li>

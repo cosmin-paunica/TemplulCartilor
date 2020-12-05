@@ -7,7 +7,7 @@ require_once "_inc/topper.inc.php";
 ?>
 
         <link rel="stylesheet" type="text/css" href="_css/forme.css" />
-        <title>Înregistrare</title>
+        <title>Autentificare • Templul Cărților</title>
     </head>
     <body>
         <?php require "_inc/header.inc.php"; ?>

@@ -138,3 +138,12 @@ ul.meniu>li:hover {
     color: red;
     font-weight: bold;
 }
+
+.task-completat {
+    color: rgb(0, 206, 0);
+    font-weight: bold;
+}
+
+.optiune-salvata {
+    background-color: lightgreen;
+}

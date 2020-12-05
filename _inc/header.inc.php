@@ -45,6 +45,7 @@
 						<ul class="submeniu">
 							<?php if ($_SESSION["rol"] == "admin") { ?>
 								<li><a href="<?php echo ROOT; ?>actiuni/adauga-carte">Adaugă o carte</a></li>
+								<li><a href="<?php echo ROOT; ?>actiuni/administreaza-conturi">Administrează conturile</a></li>
 							<?php } ?>
 							<li><a href="<?php echo ROOT; ?>actiuni/creaza-abonament">Crează un abonament</a></li>
 						</ul>

@@ -3,6 +3,7 @@
 session_start();
 if (!isset($_SESSION["rol"]) || $_SESSION["rol"] != "admin")
     header("Location: ../index.php");
+else {
 
 require_once "../_inc/setup.inc.php";
 require "../_inc/conexiune_bd.inc.php";
@@ -123,3 +124,5 @@ require_once "../_inc/topper.inc.php";
 		</main>
 	</body>
 </html>
+
+<?php } ?>
