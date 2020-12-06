@@ -1,2 +1,1 @@
-# /.gitignore
-conexiune_bd.inc.php
+_inc/conexiune_bd.inc.php
