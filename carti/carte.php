@@ -64,19 +64,14 @@ if (isset($_SESSION["id_utilizator"])) {
 						<p class="succes-text">Nota ta a fost modificată cu succes!</p>
 					<?php }
 
-					$interog = $bd->prepare("SELECT * FROM carti WHERE id_carte=?");
-					$interog->bind_param("i", $id_carte);
-					$interog->execute();
-					$rez = $interog->get_result();
-					
-					if ($rez->num_rows == 0) { ?>
-						<p class="err-text">Nu a fost găsită o carte cu id-ul specificat.</p>
-					<?php } else {
-						
-						$linie = $rez->fetch_assoc();
-						$carte = new Carte($linie);
-					
-						?>
+					$carte_gasita = true;
+					try {
+						$carte = Carte::din_bd($bd, $id_carte);
+					} catch (Exception $e) { 
+						$carte_gasita = false;?>
+						<p class="err-text"><?php echo $e->getMessage(); ?></p>
+					<?php }
+					if ($carte_gasita) { ?>
 
 						<h2><?php echo $carte->titlu; ?></h2>
 						<p>Autor(i): <?php echo $carte->get_str_autori($bd); ?></p>

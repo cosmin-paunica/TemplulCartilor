@@ -86,10 +86,10 @@ require_once "../_inc/topper.inc.php";
                             <td><label for="nr-pag">Număr de pagini:</label></td>
                             <td><input type="number" name="nr-pag" /></td>
                         </tr>
-                        <!-- <tr>
+                        <tr>
                             <td><label for="fisier-img">Imagine</label></td>
                             <td><input type="file" name="fisier-img" /></td>
-                        </tr> -->
+                        </tr>
                         <tr>
                             <td><label for="serie">Serie:</label></td>
                             <td>

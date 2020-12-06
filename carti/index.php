@@ -2,8 +2,9 @@
 
 session_start();
 require_once "../_inc/setup.inc.php";
-require "../_inc/topper.inc.php";
-require "../_inc/conexiune_bd.inc.php";
+require_once "../_inc/topper.inc.php";
+require_once "../_inc/conexiune_bd.inc.php";
+require_once "../_clase/Carte.class.php";
 
 ?>
 
@@ -41,28 +42,17 @@ require "../_inc/conexiune_bd.inc.php";
 						$interog_carte->execute();
 						$rez_carte = $interog_carte->get_result();
 						while ($linie_carte = $rez_carte->fetch_assoc()) {
-							$id_carte = $linie_carte["id_carte"];
-							$titlu = $linie_carte["titlu"];
-							
-							$interog_autori = $bd->prepare("SELECT nume_autor FROM autori_carti WHERE id_carte=?");
-							$interog_autori->bind_param("i", $id_carte);
-							$interog_autori->execute();
-							$rez_autori = $interog_autori->get_result();
-							$autori = [];
-							while ($linie_autori = $rez_autori->fetch_assoc()) {
-								array_push($autori, $linie_autori["nume_autor"]);
-							}
-							$autori = implode(", ", $autori);
-
-							echo "
-								<div class=\"linie-carte\">
-									<div>
-										<a href=\"carte?id-carte=".$id_carte."\">".$titlu."</a>
-										<p>Autor(i): ".$autori."</p>
-									</div>
+							$carte = new Carte($bd, $linie_carte); ?>
+							<div class="linie-carte">
+								<div class="div-img-linie">
+									<a href="carte?id-carte=<?php echo $carte->id_carte; ?>"><img src="../_img/<?php echo $carte->fisier_imagine; ?>" /></a>
 								</div>
-							";
-						}
+								<div class="div-continut-linie">
+									<a class="link-titlu" href="carte?id-carte=<?php echo $carte->id_carte; ?>"><?php echo $carte->titlu; ?></a>
+									<p>Autor(i): <?php echo $carte->get_str_autori(); ?></p>
+								</div>
+							</div>
+						<?php }
 
 						?>
 					</ul>

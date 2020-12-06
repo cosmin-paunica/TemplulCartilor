@@ -48,27 +48,27 @@ if (!empty(trim($_POST["goodreads"])))
     $goodreads = addslashes(trim($_POST["goodreads"]));
 
 // fisier imagine
-// if (is_uploaded_file($_FILES['fisier-img']['tmp_name'])) {
-//     $fisier_img = $_FILES["fisier-img"];
-//     $nume_fisier_img = $fisier_img["name"];
-//     $nume_tmp_fisier_img = $fisier_img["tmp_name"];
-//     $ext = explode(".", $nume_fisier_img);
-//     $ext = strtolower(end($ext));
+if (is_uploaded_file($_FILES['fisier-img']['tmp_name'])) {
+    $fisier_img = $_FILES["fisier-img"];
+    $nume_fisier_img = $fisier_img["name"];
+    $nume_tmp_fisier_img = $fisier_img["tmp_name"];
+    $ext = explode(".", $nume_fisier_img);
+    $ext = strtolower(end($ext));
     
-//     $ext_permise = ["jpg", "jpeg"];
-//     if (!in_array($ext, $ext_permise))
-//         header("Location: ../carti/adauga-carte.php?err=extimg");
+    $ext_permise = ["jpg", "jpeg"];
+    if (!in_array($ext, $ext_permise))
+        header("Location: ../carti/adauga-carte.php?err=extimg");
 
-//     if ($fisier_img["error"] !== 0)
-//         header("Location: ../carti/adauga-carte.php?err=imguplderr");
+    if ($fisier_img["error"] !== 0)
+        header("Location: ../carti/adauga-carte.php?err=imguplderr");
     
-//     if ($fisier_img["size"] > 6291456)
-//         header("Location: ../carti/adauga-carte.php?err=imgmare");
+    if ($fisier_img["size"] > 6291456)
+        header("Location: ../carti/adauga-carte.php?err=imgmare");
     
-//     $nume_nou_img = uniqid("coperta1_".str_replace([" "], "_", substr(str_replace([",", "."], "", $titlu), 0, 20))).".".$ext;
-//     $destinatie = "../_img/".$nume_nou_img;
-//     move_uploaded_file($nume_tmp_fisier_img, $destinatie);
-// }
+    $nume_nou_img = uniqid("coperta1_".str_replace([" ", "'", "\""], "_", substr(str_replace([",", "."], "", $titlu), 0, 20))).".".$ext;
+    $destinatie = "../_img/".$nume_nou_img;
+    move_uploaded_file($nume_tmp_fisier_img, $destinatie);
+}
 
 // echo $nume_nou_img;
 // die;

@@ -121,10 +121,6 @@ ul.meniu>li:hover {
     border: 2px solid black;
     padding: 9px 15px 9px 44px;
 }
-
-#searchbar {
-    margin-bottom: 20px;
-}
 /* ---------- */
 
 .succes-text {
@@ -146,4 +142,8 @@ ul.meniu>li:hover {
 
 .optiune-salvata {
     background-color: lightgreen;
+}
+
+main {
+    padding: 20px;
 }

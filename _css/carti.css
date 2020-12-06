@@ -3,6 +3,12 @@
     align-items: stretch;
 }
 
+@media screen and (max-width: 599px) {
+    .coloane {
+        display: block;
+    }
+}
+
 .coloana-sort-filter {
     width: 450px;
 }
@@ -12,8 +18,26 @@
 }
 
 .linie-carte {
+    display: flex;
     border: 3px solid green;
-    padding: 20px;
+    padding: 10px;
     margin: 0px 10px 10px 10px;
-    overflow: auto;
+}
+
+.div-continut-linie {
+    margin-left: 10px;
+}
+
+.div-img-linie img {
+    width: 150px;
+}
+
+.link-titlu {
+    font-size: 24px;
+    text-decoration: none;
+    color: green;
+}
+
+.link-titlu:hover {
+    color: orange;
 }
