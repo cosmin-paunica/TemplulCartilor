@@ -24,12 +24,12 @@
     margin: 0px 10px 10px 10px;
 }
 
-.div-continut-linie {
-    margin-left: 10px;
-}
-
 .div-img-linie img {
     width: 150px;
+}
+
+.div-continut-linie {
+    margin-left: 10px;
 }
 
 .link-titlu {

@@ -31,31 +31,43 @@ if (isset($_POST["rol"]) && isset($_GET["id-modif"])) {
                 <p class="err-text">Un id de utilizator gresit a fost introdus</p>
             <?php }
             
-            $rez = $bd->query("SELECT * FROM utilizatori");
+            $rez = $bd->query("SELECT * FROM utilizatori ORDER BY email");
             while ($utilizator = $rez->fetch_assoc()) { ?>
-                <div class="div-cont">
-                    <p>Email: <?php echo $utilizator["email"]; ?></p>
-                    <p>Prenume și nume: <?php echo $utilizator["prenume"]." ".$utilizator["nume"]; ?></p>
-                    <?php if ($utilizator["rol"] == "nevalidat") { ?>
-                        <p>Email nevalidat</p>
-                    <?php } else { ?>
-                        <form action="?id-modif=<?php echo $utilizator["id_utilizator"]; ?>" method="POST">
-                            <label for="rol">Rol: </label>
-                            <select name="rol">
-                                <?php foreach (["simplu", "bibliotecar", "admin"] as $rol) { ?>
-									<option <?php if ($utilizator["rol"] == $rol) echo "selected class=\"optiune-salvata\""; ?> value="<?php echo $rol; ?>"><?php echo $rol; ?></option>
-								<?php } ?>
-                            </select>
-                            <input type="submit" value="Modifică" />
-                        </form>
-                    <?php }
-                    
-                    if (isset($_GET["id-modif"]) && $_GET["id-modif"] == $utilizator["id_utilizator"] && isset($rol_modificat) && $rol_modificat) { ?>
-                        <p class="succes-text" style="text-align: left;">Rolul a fost modificat cu succes!</p>
-                    <?php }
+                <table class="div-cont">
+                    <tbody>
+                        <tr>
+                            <td>Email: </td>
+                            <td class="email-cont"><?php echo $utilizator["email"]; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Prenume și nume: </td>
+                            <td><?php echo $utilizator["prenume"]." ".$utilizator["nume"]; ?></td>
+                        </tr>
+                        <tr>
+                            <?php if ($utilizator["rol"] == "nevalidat") { ?>
+                                <td colspan="2">Cont nevalidat</td>
+                            <?php } else { ?>
+                                    <form action="?id-modif=<?php echo $utilizator["id_utilizator"]; ?>" method="POST">
+                                        <td><label for="rol">Rol: </label></td>
+                                        <td>
+                                            <select name="rol">
+                                                <?php foreach (["simplu", "bibliotecar", "admin"] as $rol) { ?>
+                                                    <option <?php if ($utilizator["rol"] == $rol) echo "selected class=\"optiune-salvata\""; ?> value="<?php echo $rol; ?>"><?php echo $rol; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <input type="submit" value="Modifică" />
+                                        </td>
+                                    </form>
+                        </tr>
+                        <?php }
+                        
+                        if (isset($_GET["id-modif"]) && $_GET["id-modif"] == $utilizator["id_utilizator"] && isset($rol_modificat) && $rol_modificat) { ?>
+                            <p class="succes-text" style="text-align: left;">Rolul a fost modificat cu succes!</p>
+                        <?php }
 
-                    ?>
-                </div>
+                        ?>
+                    </tbody>
+                </table>
             <?php }
 
             ?>

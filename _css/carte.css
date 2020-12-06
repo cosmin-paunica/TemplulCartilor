@@ -1,0 +1,11 @@
+.div-carte {
+    display: flex;
+}
+
+.div-img-carte img {
+    width: 300px;
+}
+
+.div-continut-carte {
+    margin-left: 10px;
+}
