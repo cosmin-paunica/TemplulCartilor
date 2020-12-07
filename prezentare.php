@@ -27,7 +27,7 @@ require_once "_inc/topper.inc.php";
 						<p>Utilizatorii simpli vor putea:</p>
 						<ul>
 							<li class="task-completat">Să vadă ce cărți aparțin bibliotecii.</li>
-							<li>Să caute o carte sau un autor în bibliotecă, folosind cuvinte cheie.</li>
+							<li class="task-completat">Să caute o carte <span style="font-weight: normal; color: black;">sau un autor</span> în bibliotecă, folosind cuvinte cheie.</li>
 							<li class="task-completat">Să vadă câte exemplare ale unei cărți sunt disponibile în bibliotecă.</li>
 							<li class="task-completat">În cazul cărților pentru care toate exemplarele sunt împrumutate, să vadă când este data de predare a unui exemplar (acest lucru nu va fi foarte precis, întrucât clienții își pot prelungi împrumuturile sau pot aduce cărțile înapoi mai devreme).</li>
 						</ul>

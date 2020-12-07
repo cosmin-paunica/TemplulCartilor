@@ -45,8 +45,7 @@ CREATE TABLE `carti` (
   `fisier_imagine` varchar(255) DEFAULT NULL,
   `id_serie` int(11) DEFAULT NULL,
   `link_goodreads` varchar(255) DEFAULT NULL,
-  `numar_exemplare` int(11) NOT NULL,
-  `numar_disponibile` int(11) NOT NULL
+  `numar_exemplare` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `imprumuturi` (

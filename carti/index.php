@@ -5,6 +5,7 @@ require_once "../_inc/setup.inc.php";
 require_once "../_inc/topper.inc.php";
 require_once "../_inc/conexiune_bd.inc.php";
 require_once "../_clase/Carte.class.php";
+require_once "../_inc/functii.inc.php";
 
 ?>
 
@@ -35,8 +36,29 @@ require_once "../_clase/Carte.class.php";
 							$sort_crit = $_GET["sort"];
 							if ($sort_crit == "recente")
 								$str_interog_carte .= " ORDER BY data_adaugare DESC";
-							// else if ($sort_crit == "imprumutate")
+							else if ($sort_crit == "imprumutate") {
+								$str_interog_carte = "
+									SELECT *, (
+										SELECT COUNT(*)
+										FROM imprumuturi
+										WHERE id_carte = c.id_carte
+									) nr_imprumuturi
+									FROM carti c
+									ORDER BY nr_imprumuturi DESC;
+								";
+							}
 						}
+						else if (isset($_GET["caut"]) && !empty($_GET["caut"])) {
+							$caut = fara_caractere_speciale(addslashes($_GET["caut"]));
+							$caut = explode("+", $caut);
+							$str_interog_carte = "";
+							foreach ($caut as $cuv) {
+								$cuv = strtolower($cuv);
+								$str_interog_carte .= "SELECT * FROM carti WHERE LOWER(titlu) LIKE '%$cuv%' UNION";
+							}
+							$str_interog_carte = substr($str_interog_carte, 0, strlen($str_interog_carte) - strlen(" UNION"));
+						}
+
 						$interog_carte = $bd->prepare($str_interog_carte);
 						// $interog_carte->bind_param()
 						$interog_carte->execute();

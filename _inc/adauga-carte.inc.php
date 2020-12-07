@@ -132,10 +132,10 @@ $id_serie = $linie["id_serie"];
 
 // inserare in tabela carti
 $interog = $bd->prepare("
-    INSERT INTO carti (titlu, id_limba, data_publicare, numar_pagini, fisier_imagine, id_serie, link_goodreads, numar_exemplare, numar_disponibile)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO carti (titlu, id_limba, data_publicare, numar_pagini, fisier_imagine, id_serie, link_goodreads, numar_exemplare)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 ");
-$interog->bind_param("sisisisii", $titlu, $id_limba, $data_pub, $nr_pag, $nume_nou_img, $id_serie, $goodreads, $nr_exemplare, $nr_exemplare);
+$interog->bind_param("sisisisii", $titlu, $id_limba, $data_pub, $nr_pag, $nume_nou_img, $id_serie, $goodreads, $nr_exemplare);
 $interog->execute();
 
 // autori

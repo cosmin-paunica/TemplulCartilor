@@ -64,11 +64,11 @@ if (isset($_GET["id-carte"]) && !empty(trim($_GET["id-carte"])) && is_numeric($_
 						if ($rez->num_rows == 0)
 							$err = "inexistent";
 						else {
-							// select imprumuturile utilizatorului pe aceasta carte care nu au fost predate
+							$id_utilizator_imprumut = $rez->fetch_assoc()["id_utilizator"];
 							$rez = $bd->query("
 								SELECT *
 								FROM imprumuturi
-								WHERE id_utilizator='$id_utilizator'
+								WHERE id_utilizator='$id_utilizator_imprumut'
 								AND id_carte='$id_carte'
 								AND predat=0
 							");
@@ -83,14 +83,9 @@ if (isset($_GET["id-carte"]) && !empty(trim($_GET["id-carte"])) && is_numeric($_
 								}
 							}
 							else {
-								$rez = $bd->query("
+								$bd->query("
 									INSERT INTO imprumuturi (id_utilizator, id_carte, data_inceput, termen_predare)
-									VALUES ('$id_utilizator', '$id_carte', DATE(NOW()), DATE_ADD(DATE(NOW()), INTERVAL 2 WEEK))
-								");
-								$rez = $bd->query("
-									UPDATE carti
-									SET numar_disponibile = numar_disponibile - 1
-									WHERE id_carte='$id_carte'
+									VALUES ('$id_utilizator_imprumut', '$id_carte', DATE(NOW()), DATE_ADD(DATE(NOW()), INTERVAL 2 WEEK))
 								");
 								$carte->numar_disponibile -= 1;
 								$msg = "imp-reusit";

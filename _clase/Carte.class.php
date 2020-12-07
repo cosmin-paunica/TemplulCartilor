@@ -38,8 +38,15 @@ class Carte {
         $this->id_serie = $arr_carte["id_serie"];
         $this->link_goodreads = $arr_carte["link_goodreads"];
         $this->numar_exemplare = $arr_carte["numar_exemplare"];
-        $this->numar_disponibile = $arr_carte["numar_disponibile"];
         $this->data_adaugare = $arr_carte["data_adaugare"];
+
+        $rez = $bd->query("
+            SELECT COUNT(*) numar_disponibile
+            FROM imprumuturi
+            WHERE id_carte='$this->id_carte'
+            AND predat=0
+        ");
+        $this->numar_disponibile = $this->numar_exemplare - $rez->fetch_assoc()["numar_disponibile"];
     }
 
     static function din_bd($bd, $id) {
