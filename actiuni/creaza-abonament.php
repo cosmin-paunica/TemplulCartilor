@@ -2,7 +2,7 @@
 
 session_start();
 if (!isset($_SESSION["rol"]) || !in_array($_SESSION["rol"], ["bibliotecar", "admin"]))
-    header("Location: ../index.php");
+    header("Location: ../index.php?err=interzis");
 header("Content-Type: text/html; charset=utf-8");
 
 require_once "../_inc/setup.inc.php";

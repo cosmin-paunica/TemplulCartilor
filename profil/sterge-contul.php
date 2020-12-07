@@ -10,7 +10,7 @@ require "../_inc/conexiune_bd.inc.php";
 
 ?>
 
-		<title><?php echo $_SESSION["prenume"]." ".$_SESSION["nume"]; ?> • Templul Cărților</title>
+		<title>Setările profilului • Templul Cărților</title>
 	</head>
 	<body>
 		<?php require "../_inc/header.inc.php"; ?>
@@ -19,7 +19,7 @@ require "../_inc/conexiune_bd.inc.php";
             <form action="../_inc/sterge-contul.inc.php" method="POST">
                 <input type="submit" value="Da" />
             </form>
-            <form action="../profil" method="POST">
+            <form action="../profil/setari" method="POST">
                 <input type="submit" value="Nu" />
             </form>
 		</main>

@@ -1,12 +1,12 @@
 <?php
 
+require "../_inc/conexiune_bd.inc.php";
+
 session_start();
 
 if (!isset($_SESSION["id_utilizator"]))
     header("Location: ../");
 else {
-    require "../_inc/conexiune_bd.inc.php";
-
     // verificare campuri complete
     $campuri = ["parola-veche", "parola-noua", "conf-parola-noua"];
     $complet = true;

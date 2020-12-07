@@ -12,38 +12,41 @@ require_once "_inc/topper.inc.php";
     <body>
         <?php require "_inc/header.inc.php"; ?>
 
-        <?php
+        <main>
+            
+            <?php
 
-        if (isset($_GET["err"])) {
-            $err = $_GET["err"];
-            if ($err == "incomplet")
-                echo '<p class="err-text">Datele introduse sunt incomplete.</p>';
-            else if ($err == "nuexista")
-                echo '<p class="err-text">Nu există un cont înregistrat cu această adresă de email.</p>';
-            else if ($err == "parolagresita")
-                echo '<p class="err-text">Parola introdusă este greșită.</p>';
-        }
+            if (isset($_GET["err"])) {
+                $err = $_GET["err"];
+                if ($err == "incomplet")
+                    echo '<p class="err-text">Datele introduse sunt incomplete.</p>';
+                else if ($err == "nuexista")
+                    echo '<p class="err-text">Nu există un cont înregistrat cu această adresă de email.</p>';
+                else if ($err == "parolagresita")
+                    echo '<p class="err-text">Parola introdusă este greșită.</p>';
+            }
 
-        ?>
-
-        <form action="_inc/autentificare.inc.php" method="POST">
-            <table class="form-table">
-                <tr>
-                    <td><label for="email">Email:</label></td>
-                    <td><input type="email" name="email" /></td>
-                </tr>
-                <tr>
-                    <td><label for="parola">Parola:</label></td>
-                    <td><input type="password" name="parola" /></td>
-                </tr>
-                <!-- <tr>
-                    <td><label for="ramaiaut">Rămâi autentificat?</label></td>
-                    <td><input type="checkbox" name="ramaiaut" /></td>
-                </tr> -->
-                <tr>
-                    <td colspan="2"><input type="submit" value="Autentifică-te" /></td>
-                </tr>
-            </table>
-        </form>
+            ?>
+            
+            <form action="_inc/autentificare.inc.php" method="POST">
+                <table class="form-table">
+                    <tr>
+                        <td><label for="email">Email:</label></td>
+                        <td><input type="email" name="email" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="parola">Parola:</label></td>
+                        <td><input type="password" name="parola" /></td>
+                    </tr>
+                    <!-- <tr>
+                        <td><label for="ramaiaut">Rămâi autentificat?</label></td>
+                        <td><input type="checkbox" name="ramaiaut" /></td>
+                    </tr> -->
+                    <tr>
+                        <td colspan="2"><input type="submit" value="Autentifică-te" /></td>
+                    </tr>
+                </table>
+            </form>
+        </main>
     </body>
 </html>

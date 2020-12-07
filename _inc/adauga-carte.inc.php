@@ -23,7 +23,7 @@ foreach ($campuri as $camp)
         header("Location: ../actiuni/adauga-carte.php?err=incomplet");
 
 if (empty(trim($_POST["limba"]) ) && empty(trim($_POST["limba-noua"])) )
-    header("Location: ../actiunu/adauga-carte.php?err=incomplet");
+    header("Location: ../actiuni/adauga-carte.php?err=incomplet");
 
 // preluare date
 $titlu = trim($_POST["titlu"]);
@@ -55,23 +55,34 @@ if (is_uploaded_file($_FILES['fisier-img']['tmp_name'])) {
     $ext = explode(".", $nume_fisier_img);
     $ext = strtolower(end($ext));
     
-    $ext_permise = ["jpg", "jpeg"];
-    if (!in_array($ext, $ext_permise))
-        header("Location: ../carti/adauga-carte.php?err=extimg");
+    if (!in_array($ext, ["jpg", "jpeg"]))
+        header("Location: ../actiuni/adauga-carte.php?err=extimg");
 
-    if ($fisier_img["error"] !== 0)
-        header("Location: ../carti/adauga-carte.php?err=imguplderr");
-    
-    if ($fisier_img["size"] > 6291456)
-        header("Location: ../carti/adauga-carte.php?err=imgmare");
+    if ($fisier_img["error"] != 0)
+        header("Location: ../actiuni/adauga-carte.php?err=imguplderr");
+
+    $img = imagecreatefromjpeg($nume_tmp_fisier_img);
+    // print_r(getimagesize($nume_tmp_fisier_img)); die;
+    $l_orig = imagesx($img);
+    $h_orig = imagesy($img);
+
+    if ($l_orig > $h_orig) {
+        $img = imagerotate($img, -90, 0);
+        $l_orig = imagesx($img);
+        $h_orig = imagesy($img);
+    }
+
+    $l_noua = 300;
+    $h_noua = floor($h_orig / ($l_orig / $l_noua));
+    $img_redim = imagecreatetruecolor($l_noua, $h_noua);
+    imagecopyresampled($img_redim, $img, 0, 0, 0, 0, $l_noua, $h_noua, $l_orig, $h_orig);
+    imagerotate($img_redim, -90, 0);
+    imagejpeg($img_redim, $nume_tmp_fisier_img, 100);
     
     $nume_nou_img = uniqid("coperta1_".str_replace([" ", "'", "\""], "_", substr(str_replace([",", "."], "", $titlu), 0, 20))).".".$ext;
     $destinatie = "../_img/".$nume_nou_img;
     move_uploaded_file($nume_tmp_fisier_img, $destinatie);
 }
-
-// echo $nume_nou_img;
-// die;
 
 // adaugare limba (daca nu exista), obtinere id_limba
 $interog = $bd->prepare("SELECT * FROM limbi WHERE nume_limba=?");
@@ -121,10 +132,10 @@ $id_serie = $linie["id_serie"];
 
 // inserare in tabela carti
 $interog = $bd->prepare("
-    INSERT INTO carti (titlu, id_limba, data_publicare, numar_pagini, id_serie, link_goodreads, numar_exemplare, numar_disponibile)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO carti (titlu, id_limba, data_publicare, numar_pagini, fisier_imagine, id_serie, link_goodreads, numar_exemplare, numar_disponibile)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
 ");
-$interog->bind_param("sisiisii", $titlu, $id_limba, $data_pub, $nr_pag, $id_serie, $goodreads, $nr_exemplare, $nr_exemplare);
+$interog->bind_param("sisisisii", $titlu, $id_limba, $data_pub, $nr_pag, $nume_nou_img, $id_serie, $goodreads, $nr_exemplare, $nr_exemplare);
 $interog->execute();
 
 // autori

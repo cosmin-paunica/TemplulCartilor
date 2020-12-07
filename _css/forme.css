@@ -1,16 +1,17 @@
 .form-table {
-    margin: 20px auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-input[type=email], [type=text], [type=password], [type=url] {
+.form-table input[type=email], [type=text], [type=password], [type=url] {
     width: 250px;
 }
 
-input[type=number] {
+.form-table input[type=number] {
     width: 100px;
 }
 
-input[type=submit] {
+.form-table input[type=submit] {
     padding: 10px 20px;
     cursor: pointer;
     width: 100%;

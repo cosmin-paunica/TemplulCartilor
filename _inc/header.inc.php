@@ -19,7 +19,7 @@
 
 						<div><?php echo $_SESSION["prenume"]." ".$_SESSION["nume"]; ?></div>
 						<ul class="submeniu">
-							<li><a href="<?php echo ROOT; ?>profil">Profilul tău</a></li>
+							<li><a href="<?php echo ROOT; ?>profil/setari">Setări</a></li>
 							<li>
 								<form action="<?php echo ROOT; ?>_inc/logout.inc.php" method="GET">
 									<input type="submit" value="Logout" />
@@ -48,6 +48,7 @@
 								<li><a href="<?php echo ROOT; ?>actiuni/administreaza-conturi">Administrează conturile</a></li>
 							<?php } ?>
 							<li><a href="<?php echo ROOT; ?>actiuni/creaza-abonament">Crează un abonament</a></li>
+							<li><a href="<?php echo ROOT; ?>actiuni/gestioneaza-imprumuturi">Gestionează împrumuturile</a></li>
 						</ul>
 				</li>
 

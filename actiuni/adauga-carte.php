@@ -2,7 +2,7 @@
 
 session_start();
 if (!isset($_SESSION["rol"]) || $_SESSION["rol"] != "admin")
-    header("Location: ../index.php");
+    header("Location: ../index.php?err=interzis");
 else {
 
 require_once "../_inc/setup.inc.php";

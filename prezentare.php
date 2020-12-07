@@ -29,7 +29,7 @@ require_once "_inc/topper.inc.php";
 							<li class="task-completat">Să vadă ce cărți aparțin bibliotecii.</li>
 							<li>Să caute o carte sau un autor în bibliotecă, folosind cuvinte cheie.</li>
 							<li class="task-completat">Să vadă câte exemplare ale unei cărți sunt disponibile în bibliotecă.</li>
-							<li>În cazul cărților pentru care toate exemplarele sunt împrumutate, să vadă când este data de predare a unui exemplar (acest lucru nu va fi foarte precis, întrucât clienții își pot prelungi împrumuturile sau pot aduce cărțile înapoi mai devreme).</li>
+							<li class="task-completat">În cazul cărților pentru care toate exemplarele sunt împrumutate, să vadă când este data de predare a unui exemplar (acest lucru nu va fi foarte precis, întrucât clienții își pot prelungi împrumuturile sau pot aduce cărțile înapoi mai devreme).</li>
 						</ul>
 					</section>
 				</li>
@@ -49,7 +49,7 @@ require_once "_inc/topper.inc.php";
 						<p>Pe lângă activitățile specifice clienților, bibliotecarii vor putea:</p>
 						<ul>
 							<li class="task-completat">Să marcheze un cont de utilizator simplu ca fiind cont de client.</li>
-							<li>Să înregistreze împrumutul unei cărți unui client, lucru ce va schimba informații de pe site, precum numărul de exemplare ale cărții disponibile în biblitoecă.</li>
+							<li class="task-completat">Să înregistreze împrumutul unei cărți unui client, lucru ce va schimba informații de pe site, precum numărul de exemplare ale cărții disponibile în biblitoecă.</li>
 						</ul>
 					</section>
 				</li>

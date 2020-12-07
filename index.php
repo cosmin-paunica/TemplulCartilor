@@ -22,6 +22,13 @@ require_once "_inc/topper.inc.php";
 					echo '<p class="succes-text">Contul a fost șters cu succes!</p>';
 			}
 
+			if (isset($_GET["err"])) {
+				$err = $_GET["err"];
+				if ($err == "interzis") { ?>
+					<p class="err-text">Nu aveți permisiunea de a accesa pagina!</p>
+				<?php }
+			}
+
 			?>
 			<p>Bine ați venit!</p>
 		</main>
