@@ -63,7 +63,7 @@ require_once "_inc/topper.inc.php";
                                 <td><input type="email" name="email" /></td>
                             </tr>
                         <?php } ?>
-                            <tr><td colspan="2"><label>Mesaj:</label></td></tr>
+                            <tr><td colspan="2"><label>Mesajul tău:</label></td></tr>
                             <tr><td colspan="2"><textarea name="mesaj" cols="70" rows="8"></textarea></td></tr>
                             <tr><td colspan="2"><input type="submit" value="Trimite mesajul" /></td></tr>
                     </tbody>

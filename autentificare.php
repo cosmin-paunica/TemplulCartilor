@@ -24,6 +24,15 @@ require_once "_inc/topper.inc.php";
                     echo '<p class="err-text">Nu există un cont înregistrat cu această adresă de email.</p>';
                 else if ($err == "parolagresita")
                     echo '<p class="err-text">Parola introdusă este greșită.</p>';
+                else if ($err == "nevalidat")
+                    echo '<p class="err-text">Contul dumneavoastră nu a fost validat! Vă rugăm să verificați email-ul.</p>';
+            }
+
+            if (isset($_GET["msg"])) {
+                $msg = $_GET["msg"];
+                if ($msg == "validat") {
+                    ?> <p class="succes-text">Contul dumneavoastră a fost validat! Introduceți mai jos datele de autentificare:</p> <?php
+                }
             }
 
             ?>

@@ -1,7 +1,10 @@
 <?php
 
 session_start();
-require "../_inc/conexiune_bd.inc.php";
+require_once "../_inc/conexiune_bd.inc.php";
+require_once "../_functii/functii.php";
+require_once "../_inc/setup.inc.php";
+require '../_phpmailer/PHPMailerAutoload.php';
 
 $campuri = ["email", "prenume", "nume", "parola", "conf-parola"];
 $complet = true;
@@ -31,11 +34,46 @@ else {
         if ($nr_randuri > 0)
             header("Location: ../inregistrare.php?err=exista");
         else {
+            $token = genereaza_token();
+
+            // trimitere email de validare
+            $mail = new PHPMailer(true);
+            try {
+                $mail->isSMTP();
+                $mail->SMTPAuth   	= true;
+                $mail->SMTPSecure 	= "tls";
+                $mail->Host       	= 'smtp.gmail.com';
+                $mail->Port       	= 587;
+                $mail->Username   	= 'komma79259@gmail.com';
+                $mail->Password		= 'analiza314';
+                $mail->SMTPDebug 	= 2;
+                $mail->SMTPOptions = [
+                    'ssl' => [
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true
+                    ]
+                ];
+            
+                $mail->setFrom('komma79259@gmail.com');
+                $mail->addAddress($email);
+            
+                $mail->isHTML(true);
+                $mail->Subject = "Validare cont pe Templul Cartilor";
+                $mail->Body    = "Stimata/stimate ".$prenume." ".$nume.",<br/><br/>Bine ati venit la Templul Cartilor! Click <a href=".ROOT."_inc/validare.inc.php?email=".$email."&token=".$token.">aici</a> pentru a va valida contul.";
+            
+                $mail->send();
+    
+                header("Location: ../contact?msg=reusit");
+            } catch (Exception $e) {
+                header("Location: ../contact?err=eroare-email");
+            }
+
             $interog = $bd->prepare("
-                INSERT INTO utilizatori (email, prenume, nume, parola) 
-                VALUES (?, ?, ?, ?)
+                INSERT INTO utilizatori (email, prenume, nume, parola, token) 
+                VALUES (?, ?, ?, ?, ?)
             ");
-            $interog->bind_param("ssss", $email, $prenume, $nume, $parola_criptata);
+            $interog->bind_param("sssss", $email, $prenume, $nume, $parola_criptata, $token);
             $interog->execute();
             $interog->close();
 
