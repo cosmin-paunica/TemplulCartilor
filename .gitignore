@@ -1,3 +1,5 @@
 _inc/conexiune_bd.inc.php
 date_autentificare.txt
 _img
+_phpmailer
+_inc/contact.inc.php

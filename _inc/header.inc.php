@@ -54,6 +54,7 @@
 
 				<?php } ?>
 				
+				<li><a href="<?php echo ROOT; ?>contact">Contact</a></li>
 			</ul>
 		</nav>
 

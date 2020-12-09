@@ -17,6 +17,11 @@
     width: 100%;
 }
 
+.form-table input[type=textarea] {
+    width: 100%;
+    max-width: 100%;
+}
+
 .stea-camp-obligatoriu {
     color: red;
 }
