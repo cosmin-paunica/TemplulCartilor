@@ -50,8 +50,8 @@ else {
                     $mail->SMTPSecure 	= "tls";
                     $mail->Host       	= 'smtp.gmail.com';
                     $mail->Port       	= 587;
-                    $mail->Username   	= 'komma79259@gmail.com';
-                    $mail->Password		= 'analiza314';
+                    $mail->Username   	= 'templulcartilor@gmail.com';
+                    $mail->Password		= 'templu123';
                     $mail->SMTPDebug 	= 2;
                     $mail->SMTPOptions = [
                         'ssl' => [
@@ -61,7 +61,7 @@ else {
                         ]
                     ];
                 
-                    $mail->setFrom('komma79259@gmail.com');
+                    $mail->setFrom('templulcartilor@gmail.com');
                     $mail->addAddress($email);
                 
                     $mail->isHTML(true);
