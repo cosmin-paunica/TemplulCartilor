@@ -8,6 +8,7 @@ require_once "_inc/topper.inc.php";
 
         <link rel="stylesheet" type="text/css" href="<?php echo ROOT; ?>_css/forme.css" />
 		<title>Contact • Templul Cărților</title>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	</head>
 	<body>
 		<?php require "_inc/header.inc.php"; ?>
@@ -34,6 +35,9 @@ require_once "_inc/topper.inc.php";
                 }
                 else if ($err == "eroare-email") {
                     ?> <p class="err-text">A apărut o eroare la trimiterea mesajului. Vă rugăm să încercați din nou.</p> <?php
+                }
+                else if ($err == "nebifat") {
+                    ?> <p class="err-text">Nu ați bifat checkbox-ul de recaptcha.</p> <?php
                 }
             }
 
@@ -65,6 +69,7 @@ require_once "_inc/topper.inc.php";
                         <?php } ?>
                             <tr><td colspan="2"><label>Mesajul tău:</label></td></tr>
                             <tr><td colspan="2"><textarea name="mesaj" cols="70" rows="8"></textarea></td></tr>
+                            <tr><td colspan="2"><div class="g-recaptcha" data-sitekey="6LcE1v8ZAAAAAAtQcSVNJTxkPJzg-neQYVjygHtM"></div></td></tr>
                             <tr><td colspan="2"><input type="submit" value="Trimite mesajul" /></td></tr>
                     </tbody>
                 </table>
