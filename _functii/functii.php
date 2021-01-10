@@ -26,4 +26,8 @@ function rezultat_recaptcha($response_key, $user_ip) {
     return $response->success;
 }
 
+function zile_diferenta($data1, $data2) {
+    return floor((strtotime($data1) - strtotime($data2)) / 60 / 60 / 24);
+}
+
 ?>

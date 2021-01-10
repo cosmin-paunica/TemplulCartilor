@@ -39,8 +39,8 @@ else {
         if ($rez->num_rows == 0)
             header("Location: ../actiuni/creaza-abonament?err=nuexista");
         else {
-            $linie = $rez->fetch_assoc();
-            $id_utilizator = $linie["id_utilizator"];
+            $linie = $rez->fetch_object();
+            $id_utilizator = $linie->id_utilizator;
 
             // inserare in tabela abonamente
             $interog = $bd->prepare("

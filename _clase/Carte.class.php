@@ -17,36 +17,28 @@ class Carte {
     public $numar_disponibile;
     public $data_adaugare;
 
-    function __construct($bd, $arr_carte) {
-        // $interog = $bd->prepare("SELECT * FROM carti WHERE id_carte=?");
-        // $interog->bind_param("i", $id);
-        // $interog->execute();
-        // $rez = $interog->get_result();
-        // if ($rez->num_rows == 0)
-        //     throw new Exception("Nu a fost găsită o carte cu id-ul specificat.");
-        
-        // $arr_carte = $rez->fetch_assoc();
+    function __construct($bd, $obj_carte) {
 
         $this->bd = $bd;
 
-        $this->id_carte = $arr_carte["id_carte"];
-        $this->titlu = $arr_carte["titlu"];
-        $this->id_limba = $arr_carte["id_limba"];
-        $this->data_publicare = $arr_carte["data_publicare"];
-        $this->numar_pagini = $arr_carte["numar_pagini"];
-        $this->fisier_imagine = $arr_carte["fisier_imagine"];
-        $this->id_serie = $arr_carte["id_serie"];
-        $this->link_goodreads = $arr_carte["link_goodreads"];
-        $this->numar_exemplare = $arr_carte["numar_exemplare"];
-        $this->data_adaugare = $arr_carte["data_adaugare"];
+        $this->id_carte = $obj_carte->id_carte;
+        $this->titlu = $obj_carte->titlu;
+        $this->id_limba = $obj_carte->id_limba;
+        $this->data_publicare = $obj_carte->data_publicare;
+        $this->numar_pagini = $obj_carte->numar_pagini;
+        $this->fisier_imagine = $obj_carte->fisier_imagine;
+        $this->id_serie = $obj_carte->id_serie;
+        $this->link_goodreads = $obj_carte->link_goodreads;
+        $this->numar_exemplare = $obj_carte->numar_exemplare;
+        $this->data_adaugare = $obj_carte->data_adaugare;
 
         $rez = $bd->query("
             SELECT COUNT(*) numar_disponibile
             FROM imprumuturi
             WHERE id_carte='$this->id_carte'
-            AND predat=0
+            AND data_predare IS NULL
         ");
-        $this->numar_disponibile = $this->numar_exemplare - $rez->fetch_assoc()["numar_disponibile"];
+        $this->numar_disponibile = $this->numar_exemplare - $rez->fetch_object()->numar_disponibile;
     }
 
     static function din_bd($bd, $id) {
@@ -57,8 +49,8 @@ class Carte {
         if ($rez->num_rows == 0)
             throw new Exception("Nu a fost găsită o carte cu id-ul specificat.");
         
-        $arr_carte = $rez->fetch_assoc();
-        return new Carte($bd, $arr_carte);
+        $obj_carte = $rez->fetch_object();
+        return new Carte($bd, $obj_carte);
     }
 
     function get_arr_autori() {
@@ -68,8 +60,8 @@ class Carte {
         $interog->bind_param("i", $this->id_carte);
         $interog->execute();
         $rez = $interog->get_result();
-        while ($linie = $rez->fetch_assoc()) {
-            array_push($autori, $linie["nume_autor"]);
+        while ($linie = $rez->fetch_object()) {
+            array_push($autori, $linie->nume_autor);
         }
 
         return $autori;
@@ -90,8 +82,8 @@ class Carte {
         $interog->bind_param("i", $this->id_carte);
         $interog->execute();
         $rez = $interog->get_result();
-        $linie = $rez->fetch_assoc();
-        return $linie["nota_medie"];
+        $linie = $rez->fetch_object();
+        return $linie->nota_medie;
     }
 }
 

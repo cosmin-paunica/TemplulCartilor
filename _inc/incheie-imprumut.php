@@ -14,10 +14,10 @@ else {
 
         $bd->query("
             UPDATE imprumuturi
-            SET predat=1
+            SET data_predare = CURDATE()
             WHERE id_utilizator='$id_utilizator'
             AND id_carte='$id_carte'
-            AND predat=0
+            AND data_predare IS NULL
         ");
 
         if ($bd->affected_rows == 0)

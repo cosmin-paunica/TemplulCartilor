@@ -29,11 +29,11 @@ else {
         if ($rez->num_rows == 0)
             header("Location: ../index?err=gresit");
         else {
-            $linie = $rez->fetch_assoc();
-            if ($linie["rol"] != "nevalidat")
+            $linie = $rez->fetch_object();
+            if ($linie->rol != "nevalidat")
                 header("Location: ../index?err=dejavalidat");
             else {
-                $id_utilizator = $linie["id_utilizator"];
+                $id_utilizator = $linie->id_utilizator;
                 $bd->query("UPDATE utilizatori SET rol='simplu' WHERE id_utilizator='$id_utilizator'");
 
                 header("Location: ../autentificare.php?msg=validat");

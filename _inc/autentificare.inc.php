@@ -31,23 +31,23 @@ else {
             header("Location: ../autentificare.php?err=nuexista");
         else {
             $parola_criptata = hash("sha256", $parola);
-            $linie = $rez->fetch_assoc();
-            $parola_bd = $linie["parola"];
+            $linie = $rez->fetch_object();
+            $parola_bd = $linie->parola;
 
             if ($parola_criptata != $parola_bd)
                 header("Location: ../autentificare.php?err=parolagresita");
             else {
-                if ($linie["rol"] == "nevalidat")
+                if ($linie->rol == "nevalidat")
                     header("Location: ../autentificare.php?err=nevalidat");
                 else {
-                    $_SESSION["id_utilizator"] = $linie["id_utilizator"];
-                    $_SESSION["email"] = $linie["email"];
-                    $_SESSION["prenume"] = $linie["prenume"];
-                    $_SESSION["nume"] = $linie["nume"];
+                    $_SESSION["id_utilizator"] = $linie->id_utilizator;
+                    $_SESSION["email"] = $linie->email;
+                    $_SESSION["prenume"] = $linie->prenume;
+                    $_SESSION["nume"] = $linie->nume;
 
-                    if ($linie['rol'] == 'simplu') {
+                    if ($linie->rol == 'simplu') {
                         $interog = $bd->prepare("SELECT * FROM abonamente WHERE id_utilizator=? AND data_expirare > DATE(NOW())");
-                        $interog->bind_param("i", $linie["id_utilizator"]);
+                        $interog->bind_param("i", $linie->id_utilizator);
                         $interog->execute();
                         $rez = $interog->get_result();
 
@@ -57,7 +57,7 @@ else {
                             $_SESSION["rol"] = "simplu";
                         }
                     } else {
-                        $_SESSION["rol"] = $linie["rol"];
+                        $_SESSION["rol"] = $linie->rol;
                     }
 
                     header("Location: ../");

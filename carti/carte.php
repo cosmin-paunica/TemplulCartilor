@@ -17,7 +17,7 @@ if (isset($_GET["id-carte"]) && !empty(trim($_GET["id-carte"])) && is_numeric($_
 			
 			if ($carte_gasita) {
 				// nota
-				if (isset($_POST["nota"])) {
+				if (isset($_SESSION["id_utilizator"]) && isset($_POST["nota"])) {
 					$nota = intval($_POST["nota"]);
 					$interog = $bd->prepare("SELECT * FROM note WHERE id_utilizator=? AND id_carte=?");
 					$interog->bind_param("ii", $id_utilizator, $id_carte);
@@ -52,7 +52,7 @@ if (isset($_GET["id-carte"]) && !empty(trim($_GET["id-carte"])) && is_numeric($_
 				}
 
 				// imprumut
-				if (isset($_POST["email-imprumut"])) {
+				if (isset($_SESSION["id_utilizator"]) && in_array($_SESSION["rol"], ["bibliotecar", "admin"]) && isset($_POST["email-imprumut"])) {
 					$email = $_POST["email-imprumut"];
 					if (!filter_var($email, FILTER_VALIDATE_EMAIL))
 						$err = "email-invalid";
@@ -64,17 +64,17 @@ if (isset($_GET["id-carte"]) && !empty(trim($_GET["id-carte"])) && is_numeric($_
 						if ($rez->num_rows == 0)
 							$err = "inexistent";
 						else {
-							$id_utilizator_imprumut = $rez->fetch_assoc()["id_utilizator"];
+							$id_utilizator_imprumut = $rez->fetch_object()->id_utilizator;
 							$rez = $bd->query("
 								SELECT *
 								FROM imprumuturi
 								WHERE id_utilizator='$id_utilizator_imprumut'
 								AND id_carte='$id_carte'
-								AND predat=0
+								AND data_predare IS NULL
 							");
 							if ($rez->num_rows != 0) {
-								$imprumut = $rez->fetch_assoc();
-								$termen_predare = $imprumut["termen_predare"];
+								$imprumut = $rez->fetch_object();
+								$termen_predare = $imprumut->termen_predare;
 								if ($termen_predare < date("YYYY-mm-dd")) {
 									$err = "deja-imp";
 								}
@@ -151,13 +151,13 @@ else {
 								SELECT MIN(termen_predare) termen_min
 								FROM imprumuturi
 								WHERE id_carte=?
-								AND predat=0
+								AND data_predare IS NULL
 							");
 							$interog->bind_param("i", $carte->id_carte);
 							$interog->execute();
 							$rez = $interog->get_result();
-							$linie = $rez->fetch_assoc();
-							$termen_min = $linie["termen_min"];
+							$linie = $rez->fetch_object();
+							$termen_min = $linie->termen_min;
 							?> <p>Toate exemplarele acestei cărți sunt împrumutate clienților noștri. Recomandăm să verifici din nou în data de <?php echo date("d.m.Y", strtotime($termen_min." +1 day")) ?></p> <?php
 						} ?>
 
@@ -183,7 +183,7 @@ else {
 								if ($rez->num_rows == 0)
 									$nota = -1;
 								else
-									$nota = $rez->fetch_assoc()["valoare_nota"];
+									$nota = $rez->fetch_object()->valoare_nota;
 							} ?>
 							<!-- nota utilizatorului -->
 							<form action="" method="POST">

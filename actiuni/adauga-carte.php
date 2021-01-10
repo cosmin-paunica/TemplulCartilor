@@ -60,9 +60,9 @@ require_once "../_inc/topper.inc.php";
 
                                     $rez = $bd->query("SELECT nume_limba FROM limbi ORDER BY nume_limba");
                                     if ($rez->num_rows > 0) {
-                                        while ($linie = $rez->fetch_assoc()) {
-                                            echo "<p>".$linie["nume_limba"]."</p>";
-                                            echo "<option value=".$linie["nume_limba"].">".ucfirst($linie["nume_limba"])."</option>";
+                                        while ($linie = $rez->fetch_object()) {
+                                            echo "<p>".$linie->nume_limba."</p>";
+                                            echo "<option value=".$linie->nume_limba.">".ucfirst($linie->nume_limba)."</option>";
                                         }
                                     }
 
@@ -99,8 +99,8 @@ require_once "../_inc/topper.inc.php";
 
                                     $rez = $bd->query("SELECT nume_serie FROM serii ORDER BY nume_serie");
                                     if ($rez->num_rows > 0) {
-                                        while ($linie = $rez->fetch_assoc())
-                                            echo "<option>".$linie["nume_serie"]."</option>";
+                                        while ($linie = $rez->fetch_object())
+                                            echo "<option>".$linie->nume_serie."</option>";
                                     }
 
                                     ?>

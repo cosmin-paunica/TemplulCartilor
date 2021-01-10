@@ -4,7 +4,7 @@ session_start();
 require_once "../_inc/conexiune_bd.inc.php";
 require_once "../_functii/functii.php";
 require_once "../_inc/setup.inc.php";
-require "../_phpmailer/PHPMailerAutoload.php";
+require "../_clase/PHPMailerAutoload.php";
 
 // recaptcha
 $response_key = $_POST["g-recaptcha-response"];

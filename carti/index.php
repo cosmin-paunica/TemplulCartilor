@@ -54,7 +54,7 @@ require_once "../_inc/functii.inc.php";
 							$str_interog_carte = "";
 							foreach ($caut as $cuv) {
 								$cuv = strtolower($cuv);
-								$str_interog_carte .= "SELECT * FROM carti WHERE LOWER(titlu) LIKE '%$cuv%' UNION";
+								$str_interog_carte .= "SELECT DISTINCT * FROM carti c JOIN autori_carti a ON (c.id_carte = a.id_carte) WHERE LOWER(titlu) LIKE '%$cuv%' OR LOWER(nume_autor) LIKE '%$cuv%' UNION";
 							}
 							$str_interog_carte = substr($str_interog_carte, 0, strlen($str_interog_carte) - strlen(" UNION"));
 						}
@@ -63,18 +63,26 @@ require_once "../_inc/functii.inc.php";
 						// $interog_carte->bind_param()
 						$interog_carte->execute();
 						$rez_carte = $interog_carte->get_result();
-						while ($linie_carte = $rez_carte->fetch_assoc()) {
-							$carte = new Carte($bd, $linie_carte); ?>
-							<div class="linie-carte">
-								<div class="div-img-linie">
-									<a href="carte?id-carte=<?php echo $carte->id_carte; ?>"><img src="../_img/<?php echo $carte->fisier_imagine; ?>" /></a>
-								</div>
-								<div class="div-continut-linie">
-									<a class="link-titlu" href="carte?id-carte=<?php echo $carte->id_carte; ?>"><?php echo $carte->titlu; ?></a>
-									<p>Autor(i): <?php echo $carte->get_str_autori(); ?></p>
-								</div>
-							</div>
-						<?php }
+						if ($rez_carte->num_rows == 0) { ?>
+							<p>Nu a fost găsit niciun rezultat care să corespundă căutării.</p>
+						<?php } else {
+							$id_curent_carte = -1;
+							while ($linie_carte = $rez_carte->fetch_object()) {
+								if ($id_curent_carte != $linie_carte->id_carte) {	// pot aparea carti de mai multe ori cand se cauta o carte cu mai multi autori
+									$id_curent_carte = $linie_carte->id_carte;
+									$carte = new Carte($bd, $linie_carte); ?>
+									<div class="linie-carte">
+										<div class="div-img-linie">
+											<a href="carte?id-carte=<?php echo $carte->id_carte; ?>"><img src="../_img/<?php echo $carte->fisier_imagine; ?>" /></a>
+										</div>
+										<div class="div-continut-linie">
+											<a class="link-titlu" href="carte?id-carte=<?php echo $carte->id_carte; ?>"><?php echo $carte->titlu; ?></a>
+											<p>Autor(i): <?php echo $carte->get_str_autori(); ?></p>
+										</div>
+									</div>
+							<?php } 
+							}
+						}
 
 						?>
 					</ul>

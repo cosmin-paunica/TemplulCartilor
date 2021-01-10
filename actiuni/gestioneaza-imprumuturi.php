@@ -8,10 +8,12 @@ header("Content-Type: text/html; charset=utf-8");
 require_once "../_inc/setup.inc.php";
 require "../_inc/conexiune_bd.inc.php";
 require_once "../_inc/topper.inc.php";
+require_once "../_clase/Carte.class.php";
+require_once "../_functii/functii.php";
 
 ?>
 
-        <link rel="stylesheet" type="text/css" href="../_css/gestioneaza-imprumuturi.css" />
+        <link rel="stylesheet" type="text/css" href="../_css/imprumuturi.css" />
 		<title>Gestionează împrumuturile • Templul Cărților</title>
 	</head>
 	<body>
@@ -60,37 +62,23 @@ require_once "../_inc/topper.inc.php";
                     if ($rez->num_rows == 0)
                         $err = "inexistent";
                     else {
-                        $id_utilizator = $rez->fetch_assoc()["id_utilizator"];
+                        $id_utilizator = $rez->fetch_object()->id_utilizator;
                         $rez = $bd->query("
-                            SELECT i.*, c.titlu
-                            FROM imprumuturi i JOIN carti c ON (i.id_carte = c.id_carte)
+                            SELECT *
+                            FROM imprumuturi i
                             WHERE id_utilizator='$id_utilizator'
-                            AND predat=0;
+                            AND data_predare IS NULL;
                         ");
                         
                         ?> <p>Împrumuturile utilizatorului cu email-ul <?php echo $email ?>:</p> <?php
-                        while ($imprumut = $rez->fetch_assoc()) { ?>
-                            <table class="tabel-imprumut">
-                                <tbody>
-                                    <tr>
-                                        <td>Titlul cărții: </td>
-                                        <td><?php echo $imprumut["titlu"]; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Termen predare: </td>
-                                        <td>
-                                            <?php 
-                                            echo date("d.m.Y", strtotime($imprumut["termen_predare"]));
-                                            if (strtotime($imprumut["termen_predare"]) < strtotime("now"))
-                                                echo "<span style=\"color: red;\"> Întârziat!</span>"
-                                            ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"><a href="../_inc/incheie-imprumut.php?id_utilizator=<?php echo $id_utilizator; ?>&id_carte=<?php echo $imprumut["id_carte"]; ?>">Încheie împrumutul</a></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        while ($imp = $rez->fetch_object()) {
+                            $carte = Carte::din_bd($bd, $imp->id_carte); ?>
+                            <div class="div-imprumut">
+                                <p><?= $carte->titlu; ?>, autor(i): <?= $carte->get_str_autori() ?></p>
+                                <p>Termen predare: <?= date("d.m.Y", strtotime($imp->termen_predare)) ?></p>
+                                <?php if (strtotime($imp->termen_predare) < strtotime("now")) { ?> <p style="color: red; font-weight: bold">Termenul de predare a expirat acum <?= zile_diferenta(date("now"), $imp->termen_predare) ?> zile!</p> <?php } ?>
+                                <p><a href="../_inc/incheie-imprumut.php?id_utilizator=<?php echo $id_utilizator; ?>&id_carte=<?php echo $carte->id_carte; ?>">Încheie împrumutul</a></p>
+                            </div>
                         <?php }
                     }
                 }

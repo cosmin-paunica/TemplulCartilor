@@ -26,8 +26,8 @@ else {
         $interog->execute();
 
         $rez = $interog->get_result();
-        $linie = $rez->fetch_assoc();
-        $parola_bd = $linie["parola"];
+        $linie = $rez->fetch_object();
+        $parola_bd = $linie->parola;
 
         $parola_veche_cript = hash("sha256", $parola_veche);
         if ($parola_veche_cript != $parola_bd)
