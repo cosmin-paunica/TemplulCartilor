@@ -21,9 +21,9 @@ else {
     if (!$complet)
         header("Location: ../inregistrare.php?err=incomplet");
     else {
-        $email = addslashes(trim($_POST["email"]));
-        $prenume = addslashes(trim($_POST["prenume"]));
-        $nume = addslashes(trim($_POST["nume"]));
+        $email = htmlspecialchars(trim($_POST["email"]));
+        $prenume = htmlspecialchars(trim($_POST["prenume"]));
+        $nume = htmlspecialchars(trim($_POST["nume"]));
         $parola = trim($_POST["parola"]);
         $conf_parola = trim($_POST["conf-parola"]);
 

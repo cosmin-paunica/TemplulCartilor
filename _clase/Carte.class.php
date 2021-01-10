@@ -84,6 +84,15 @@ class Carte {
         $str_autori = substr($str_autori, 0, strlen($str_autori) - 2);
         return $str_autori;
     }
+
+    function get_nota_medie() {
+        $interog = $this->bd->prepare("SELECT AVG(valoare_nota) nota_medie FROM note WHERE id_carte=?");
+        $interog->bind_param("i", $this->id_carte);
+        $interog->execute();
+        $rez = $interog->get_result();
+        $linie = $rez->fetch_assoc();
+        return $linie["nota_medie"];
+    }
 }
 
 ?>

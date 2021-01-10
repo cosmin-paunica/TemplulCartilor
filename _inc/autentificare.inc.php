@@ -19,7 +19,7 @@ else {
     if (!$complet)
         header("Location: ../autentificare.php?err=incomplet");
     else {
-        $email = addslashes(trim($_POST["email"]));
+        $email = htmlspecialchars(trim($_POST["email"]));
         $parola = trim($_POST["parola"]);
 
         $interog = $bd->prepare("SELECT * FROM utilizatori WHERE email=?");

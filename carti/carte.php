@@ -161,7 +161,19 @@ else {
 							?> <p>Toate exemplarele acestei cărți sunt împrumutate clienților noștri. Recomandăm să verifici din nou în data de <?php echo date("d.m.Y", strtotime($termen_min." +1 day")) ?></p> <?php
 						} ?>
 
-						<!-- nota -->
+						<!-- Nota Goodreads -->
+						<?php
+
+						if ($carte->link_goodreads) {
+							$continut = file_get_contents($carte->link_goodreads);
+							$continut = explode("\"ratingValue\">", $continut);
+							$nota_goodreads = substr($continut[1], 3, 4);
+							?> <p>Notă Goodreads: <?php echo $nota_goodreads; ?> (<a href="<?php echo $carte->link_goodreads; ?>" target="_blank">Vezi <?php echo $carte->titlu; ?> pe Goodreads)</a></p>
+						<?php } ?>
+
+						<!-- Nota utilizatorilor -->
+						<p>Nota utilizatorilor: <?php echo $carte->get_nota_medie() != 0 ? number_format($carte->get_nota_medie(), 1) : "N/A"; ?></p>
+
 						<?php if (isset($id_utilizator)) {
 							if (!isset($nota)) {
 								$interog = $bd->prepare("SELECT * FROM note WHERE id_utilizator=? AND id_carte=?");
@@ -173,6 +185,7 @@ else {
 								else
 									$nota = $rez->fetch_assoc()["valoare_nota"];
 							} ?>
+							<!-- nota utilizatorului -->
 							<form action="" method="POST">
 								<label for="nota">Nota ta: </label>
 								<select name="nota">
@@ -184,10 +197,8 @@ else {
 								<input type="submit" value="Salvează"/>
 							</form>
 
-							<?php 
-							
-							
-							if (isset($_SESSION["rol"]) && in_array($_SESSION["rol"], ["bibliotecar", "admin"])) { ?>
+							<!-- Oferirea spre imprumut -->
+							<?php if (isset($_SESSION["rol"]) && in_array($_SESSION["rol"], ["bibliotecar", "admin"])) { ?>
 								<br>
 								<h3>Oferă cartea spre împrumut:</h3>
 								<form action="" method="POST">
